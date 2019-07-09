@@ -1,1 +1,1 @@
-A react Application to build a burger through a webapp.
+A react Application to build a burger for ordering.
