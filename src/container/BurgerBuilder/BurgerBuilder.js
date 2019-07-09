@@ -79,6 +79,9 @@ function BurgerBuilder (props){
       const purchaseCancelHandler = () =>{
         setCheckout({ purchasing : false })
     }
+    const purchaseContinueHandler = () =>{
+        alert('You Continue !!');
+    }
       const disabledInfo = {
           ...BurgerState.ingredients
       };
@@ -90,7 +93,11 @@ function BurgerBuilder (props){
             {console.log(BurgerState)}
             <Modal show={purchasing.purchasing}
             modalClosed={purchaseCancelHandler}>
-                <OrderSummary ingredients={BurgerState.ingredients}/> 
+                <OrderSummary 
+                price = {BurgerState.totalPrice}
+                purchaseCancelled={purchaseCancelHandler}
+                purchaseContinue={purchaseContinueHandler}
+                ingredients={BurgerState.ingredients}/> 
              </Modal>
         <Burger ingredients={BurgerState.ingredients}/>
         <BuildControls ingredientAdded={addIngredientHandler}
