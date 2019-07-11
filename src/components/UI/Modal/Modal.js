@@ -1,8 +1,11 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Styles from './Modal.module.css'
 import Backdrop from '../Backdrop/Backdrop'
 
-const modal = (props) => (
+const modal = React.memo(
+    props => {    
+        useEffect(() => console.log('it did update')); 
+    return(
     <React.Fragment>
         <Backdrop show = {props.show} clicked={props.modalClosed}/>
     <div className={Styles.Modal}
@@ -13,6 +16,8 @@ const modal = (props) => (
         {props.children}
     </div>
     </React.Fragment>
+    )
+}, (prevProps, nextProps) => prevProps.show === nextProps.show
 );
 
 export default modal;
