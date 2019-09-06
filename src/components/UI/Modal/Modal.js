@@ -1,23 +1,32 @@
-import React,{useEffect} from 'react'
+import React,{Component} from 'react'
 import Styles from './Modal.module.css'
 import Backdrop from '../Backdrop/Backdrop'
 
-const modal = React.memo(
-    props => {    
-        useEffect(() => console.log('it did update')); 
-    return(
-    <React.Fragment>
-        <Backdrop show = {props.show} clicked={props.modalClosed}/>
-    <div className={Styles.Modal}
-    style={{
-        transform : props.show ? 'translateY(0)' : 'translateY(-100vh)',
-        opacity : props.show ? '1' : '0'
-    }}>
-        {props.children}
-    </div>
-    </React.Fragment>
-    )
-}, (prevProps, nextProps) => prevProps.show === nextProps.show
-);
+class Modal extends Component {
 
-export default modal;
+    shouldComponentUpdate ( nextProps, nextState ) {
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
+    }
+
+    componentWillUpdate () {
+        console.log('[Modal] WillUpdate');
+    }
+
+    render () {
+        return (
+                <React.Fragment>
+                <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
+                <div
+                    className={Styles.Modal}
+                    style={{
+                        transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
+                        opacity: this.props.show ? '1' : '0'
+                    }}>
+                    {this.props.children}
+                </div>
+                </React.Fragment>
+        )
+    }
+}
+
+export default Modal;
